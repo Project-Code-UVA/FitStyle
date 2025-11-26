@@ -11,6 +11,16 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 
 from pathlib import Path
+import environ, os
+
+BASE_DIR = Path(__file__).resolve().parent.parent
+env = environ.Env()
+environ.Env.read_env(os.path.join(os.path.dirname(os.path.abspath(__file__)), '.env'))
+
+SUPABASE_URL = env("SUPABASE_URL")
+SUPABASE_AUD = env("SUPABASE_AUD")
+SUPABASE_ISSUER = env("SUPABASE_ISSUER")
+SUPABASE_ANON_KEY = os.environ.get("SUPABASE_ANON_KEY")
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -41,6 +51,8 @@ INSTALLED_APPS = [
     'corsheaders',
     'api',
 ]
+
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -126,3 +138,9 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+'''REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'api.auth_backends.SupabaseJWTAuthentication',
+    ),
+}'''
