@@ -1,27 +1,61 @@
 import { useState } from "react";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import "./App.css";
-import Home from "./pages/Home.jsx";
+
+import LandingPage from "./pages/LandingPage.jsx";
+import LoginPage from "./pages/LoginPage.jsx";
 import StylePreferencesForm from "./components/StylePreferencesForm.jsx";
+import Home from "./pages/Home.jsx";
+
+// App.jsx is the "brain" of navigation.
+// It owns two pieces of state that control which page the user sees:
+//   - isLoggedIn: did the user "log in"?
+//   - userPreferences: did the user complete the style form?
 
 function App() {
-  // null means the form hasn't been completed yet.
-  // Once completed, this holds the user's preference data.
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userPreferences, setUserPreferences] = useState(null);
 
-  // This function is passed as a prop to StylePreferencesForm.
-  // When the user hits "Get My Style", the form calls this with their answers.
-  function handleFormComplete(preferences) {
-    console.log("User preferences saved:", preferences);
-    setUserPreferences(preferences);
-  }
+  return (
+    // BrowserRouter enables URL-based navigation (e.g. /login, /app).
+    <BrowserRouter>
+      <Routes>
 
-  // Conditional rendering: show the form until preferences are saved,
-  // then show the main app (Home).
-  if (userPreferences === null) {
-    return <StylePreferencesForm onComplete={handleFormComplete} />;
-  }
+        {/* / → Landing page (public) */}
+        <Route path="/" element={<LandingPage />} />
 
-  return <Home userPreferences={userPreferences} />;
+        {/* /login → Login page.
+            If already logged in, skip straight to /app. */}
+        <Route
+          path="/login"
+          element={
+            isLoggedIn
+              ? <Navigate to="/app" replace />
+              : <LoginPage onLogin={() => setIsLoggedIn(true)} />
+          }
+        />
+
+        {/* /app → The main app.
+            Not logged in → go to login.
+            Logged in but no preferences yet → show the style form.
+            Both done → show the camera/Home page. */}
+        <Route
+          path="/app"
+          element={
+            !isLoggedIn
+              ? <Navigate to="/login" replace />
+              : userPreferences === null
+                ? <StylePreferencesForm onComplete={setUserPreferences} />
+                : <Home userPreferences={userPreferences} />
+          }
+        />
+
+        {/* Catch-all: any unknown URL redirects to home */}
+        <Route path="*" element={<Navigate to="/" replace />} />
+
+      </Routes>
+    </BrowserRouter>
+  );
 }
 
 export default App;
