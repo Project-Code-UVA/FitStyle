@@ -57,18 +57,18 @@ function LandingPage() {
       <section className="relative min-h-screen flex flex-col items-center justify-center text-center px-6 pt-20 pb-16 overflow-hidden">
         {/* Background glow */}
         <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-          <div className="w-[700px] h-[400px] bg-amber-500/10 rounded-full blur-3xl" />
+          <div className="w-[700px] h-[400px] bg-sky-500/10 rounded-full blur-3xl" />
         </div>
 
         <div className="relative z-10 max-w-4xl mx-auto">
           {/* Badge */}
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-amber-500/30 bg-amber-500/10 text-amber-400 text-xs font-medium mb-8 tracking-wide uppercase">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-sky-500/30 bg-sky-500/10 text-sky-400 text-xs font-medium mb-8 tracking-wide uppercase">
             ✦ AI-Powered Fashion Intelligence
           </div>
 
           <h1 className="text-5xl md:text-7xl font-bold tracking-tight leading-tight mb-6">
             Style advice that<br />
-            <span className="text-amber-400">fits your body.</span>
+            <span className="text-sky-400">fits your body.</span>
           </h1>
 
           <p className="text-zinc-400 text-lg md:text-xl max-w-2xl mx-auto mb-10 leading-relaxed">
@@ -79,7 +79,7 @@ function LandingPage() {
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
             <button
               onClick={() => navigate("/login")}
-              className="px-8 py-3.5 rounded-xl bg-amber-400 text-zinc-900 font-semibold hover:bg-amber-300 transition-all active:scale-95"
+              className="px-8 py-3.5 rounded-xl bg-sky-400 text-zinc-900 font-semibold hover:bg-sky-300 transition-all active:scale-95"
             >
               Get Started Free
             </button>
@@ -111,7 +111,7 @@ function LandingPage() {
                 key={f.title}
                 className="bg-zinc-900 border border-zinc-800 rounded-2xl p-8 hover:border-zinc-700 transition-all"
               >
-                <div className="text-4xl text-amber-400 mb-5">{f.icon}</div>
+                <div className="text-4xl text-sky-400 mb-5">{f.icon}</div>
                 <h3 className="text-lg font-semibold mb-2">{f.title}</h3>
                 <p className="text-zinc-400 text-sm leading-relaxed">{f.desc}</p>
               </div>
@@ -153,7 +153,7 @@ function LandingPage() {
           </p>
           <button
             onClick={() => navigate("/login")}
-            className="px-10 py-4 rounded-xl bg-amber-400 text-zinc-900 font-bold text-lg hover:bg-amber-300 transition-all active:scale-95"
+            className="px-10 py-4 rounded-xl bg-sky-400 text-zinc-900 font-bold text-lg hover:bg-sky-300 transition-all active:scale-95"
           >
             Start for Free →
           </button>

@@ -48,27 +48,27 @@ function LoginPage({ onLogin }) {
               <input
                 type="email"
                 placeholder="you@example.com"
-                className="w-full px-4 py-3 bg-zinc-800 border border-zinc-700 rounded-xl text-white placeholder-zinc-500 text-sm outline-none focus:border-amber-500 transition-colors"
+                className="w-full px-4 py-3 bg-zinc-800 border border-zinc-700 rounded-xl text-white placeholder-zinc-500 text-sm outline-none focus:border-sky-500 transition-colors"
               />
             </div>
 
             <div>
               <div className="flex items-center justify-between mb-1.5">
                 <label className="text-zinc-300 text-sm font-medium">Password</label>
-                <a href="#" className="text-amber-400 text-xs hover:text-amber-300 transition-colors">
+                <a href="#" className="text-sky-400 text-xs hover:text-sky-300 transition-colors">
                   Forgot password?
                 </a>
               </div>
               <input
                 type="password"
                 placeholder="••••••••"
-                className="w-full px-4 py-3 bg-zinc-800 border border-zinc-700 rounded-xl text-white placeholder-zinc-500 text-sm outline-none focus:border-amber-500 transition-colors"
+                className="w-full px-4 py-3 bg-zinc-800 border border-zinc-700 rounded-xl text-white placeholder-zinc-500 text-sm outline-none focus:border-sky-500 transition-colors"
               />
             </div>
 
             <button
               type="submit"
-              className="w-full py-3 rounded-xl bg-amber-400 text-zinc-900 font-semibold hover:bg-amber-300 transition-all active:scale-95 mt-1"
+              className="w-full py-3 rounded-xl bg-sky-400 text-zinc-900 font-semibold hover:bg-sky-300 transition-all active:scale-95 mt-1"
             >
               Log In
             </button>
@@ -115,7 +115,7 @@ function LoginPage({ onLogin }) {
         {/* Sign up link */}
         <p className="text-center text-zinc-500 text-sm mt-6">
           New to FitStyle?{" "}
-          <a href="#" className="text-amber-400 hover:text-amber-300 font-medium transition-colors">
+          <a href="#" className="text-sky-400 hover:text-sky-300 font-medium transition-colors">
             Create an account
           </a>
         </p>
