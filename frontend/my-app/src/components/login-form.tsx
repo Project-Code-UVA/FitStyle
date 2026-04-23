@@ -53,9 +53,6 @@ export function LoginForm({
       <Card>
         <CardHeader>
           <CardTitle className="text-2xl">Login</CardTitle>
-          <CardDescription>
-            Enter your email below to login to your account
-          </CardDescription>
         </CardHeader>
         <CardContent>
           <form onSubmit={handleLogin}>

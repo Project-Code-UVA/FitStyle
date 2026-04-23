@@ -2,8 +2,8 @@
 import Webcam from "react-webcam";
 
 interface WebCamProps {
-  webCamRef: React.RefObject<Webcam>;
-  canvasRef: React.RefObject<HTMLCanvasElement>;
+  webCamRef: React.RefObject<Webcam | null>;
+  canvasRef: React.RefObject<HTMLCanvasElement | null>;
   isActive: boolean;
 }
 

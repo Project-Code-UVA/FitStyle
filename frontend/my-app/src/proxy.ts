@@ -1,10 +1,24 @@
-import { type NextRequest } from "next/server";
-
+import { createClient } from "@/lib/supabase/server";
 import { updateSession } from "@/lib/supabase/proxy";
+import { NextResponse, NextRequest } from "next/server";
+export default async function proxy(request: NextRequest) {
+  const response = await updateSession(request);
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
 
-export async function proxy(request: NextRequest) {
-  return await updateSession(request);
+  if (
+    !user &&
+    !public_sites.some((site) => request.nextUrl.pathname.startsWith(site))
+  ) {
+    return NextResponse.redirect(new URL("/auth/login", request.url));
+  }
+
+  return response;
 }
+
+const public_sites = ["/auth", "/auth/*"];
 
 export const config = {
   matcher: [

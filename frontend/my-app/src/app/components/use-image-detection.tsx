@@ -9,8 +9,8 @@ type PoseLandmarkerImageLike = {
 
 interface ImageDetectionProps {
   poseLandmarker: PoseLandmarkerImageLike | null;
-  canvasRef: RefObject<HTMLCanvasElement>;
-  image: RefObject<HTMLImageElement>;
+  canvasRef: RefObject<HTMLCanvasElement | null>;
+  image: RefObject<HTMLImageElement | null>;
   isActive: boolean;
   onResults: (
     result: unknown,
@@ -41,5 +41,13 @@ export function useImageDetection({
     } catch (error) {
       console.error(error);
     }
-  }, [poseLandmarker, canvasRef, image, isActive, onResults]);
+  }, [
+    poseLandmarker,
+    canvasRef,
+    image,
+    image.current?.src,
+    image.current?.complete,
+    isActive,
+    onResults,
+  ]);
 }

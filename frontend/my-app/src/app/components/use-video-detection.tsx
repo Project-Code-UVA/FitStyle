@@ -10,8 +10,8 @@ type PoseLandmarkerVideoLike = {
 
 interface VideoDetectionProps {
   poseLandmarker: PoseLandmarkerVideoLike | null;
-  webCamRef: RefObject<Webcam>;
-  canvasRef: RefObject<HTMLCanvasElement>;
+  webCamRef: RefObject<Webcam | null>;
+  canvasRef: RefObject<HTMLCanvasElement | null>;
   isActive: boolean;
   onResults: (
     result: unknown,

@@ -8,11 +8,11 @@ import { usePoseRenderer } from "./render-pose-video";
 import Webcam from "react-webcam";
 
 interface ModelProps {
-  webCamRef: React.RefObject<Webcam>;
-  canvasRef: React.RefObject<HTMLCanvasElement>;
+  webCamRef: React.RefObject<Webcam | null>;
+  canvasRef: React.RefObject<HTMLCanvasElement | null>;
   webCamOn: boolean;
   heightCm: number;
-  image: React.RefObject<HTMLImageElement>;
+  image: React.RefObject<HTMLImageElement | null>;
 }
 
 const Model = ({
