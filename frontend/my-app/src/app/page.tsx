@@ -1,133 +1,55 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
-import type { ChangeEvent } from "react";
-import Webcam from "react-webcam";
 import { LogoutButton } from "@/components/logout-button";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import Model from "./components/load-model";
-import WebCam from "./components/webcam";
+import React from "react";
+import { useSearchParams } from "next/navigation";
+import { josefin, dawn } from "./styles/font";
 
-type CaptureMode = "video" | "image";
+const page = () => {
+  const searchParams = useSearchParams();
 
-export default function Home() {
-  const webCamRef = useRef<Webcam>(null);
-  const canvasRef = useRef<HTMLCanvasElement>(null);
-  const imageRef = useRef<HTMLImageElement>(null);
-  const [mode, setMode] = useState<CaptureMode>("video");
-  const [heightCm, setHeightCm] = useState("170");
-  const [imageUrl, setImageUrl] = useState<string | null>(null);
-  const [imageLoaded, setImageLoaded] = useState(false);
-
-  useEffect(() => {
-    return () => {
-      if (imageUrl) {
-        URL.revokeObjectURL(imageUrl);
-      }
-    };
-  }, [imageUrl]);
-
-  const handleImageChange = (event: ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0];
-
-    if (!file) {
-      return;
-    }
-
-    if (imageUrl) {
-      URL.revokeObjectURL(imageUrl);
-    }
-
-    setImageLoaded(false);
-    setImageUrl(URL.createObjectURL(file));
-    setMode("image");
+  const measurements = {
+    body_shape: searchParams.get("body_shape") ?? "Unknown",
+    shoulder_width: Number(searchParams.get("shoulder_width") ?? "0"),
+    hip_width: Number(searchParams.get("hip_width") ?? "0"),
+    leg_length: Number(searchParams.get("leg_length") ?? "0"),
+    arm_length: Number(searchParams.get("arm_length") ?? "0"),
   };
 
-  const isVideoMode = mode === "video";
-  const numericHeight = Number(heightCm) || 0;
-
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-100">
-      <LogoutButton />
+    <div className="h-screen flex flex-col items-center justify-center gap-4">
+      <div
+        className={`bg-white p-6 rounded-lg shadow-md w-200 h-100 ${josefin.className}`}
+      >
+        <LogoutButton />
 
-      <section className="grid gap-4 rounded-3xl">
-        <div className="grid gap-4 sm:grid-cols-[auto,1fr] sm:items-end">
-          <div className="flex gap-2 rounded-2xl border border-white/10 bg-slate-900 p-1">
-            <Button
-              type="button"
-              variant={isVideoMode ? "default" : "outline"}
-              onClick={() => setMode("video")}
-            >
-              Video
-            </Button>
-            <Button
-              type="button"
-              variant={!isVideoMode ? "default" : "outline"}
-              onClick={() => setMode("image")}
-            >
-              Image
-            </Button>
-          </div>
-        </div>
-
-        <div className="grid gap-2">
-          <label htmlFor="image-upload" className="text-sm text-slate-300">
-            Upload image for detection
-          </label>
-          <Input
-            id="image-upload"
-            type="file"
-            accept="image/*"
-            onChange={handleImageChange}
-            className="max-w-sm bg-slate-950 text-white"
-          />
-        </div>
-      </section>
-
-      <section className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_320px]">
-        <div className="relative overflow-hidden rounded-3xl border border-white/10 bg-slate-900 shadow-2xl shadow-black/30">
-          {isVideoMode ? (
-            <WebCam
-              webCamRef={webCamRef}
-              canvasRef={canvasRef}
-              isActive={isVideoMode}
-            />
-          ) : (
-            <div className="relative min-h-120 w-full bg-slate-950">
-              {imageUrl ? (
-                <img
-                  ref={imageRef}
-                  src={imageUrl}
-                  alt="Uploaded pose reference"
-                  onLoad={() => setImageLoaded(true)}
-                  className="h-full w-full object-contain"
-                />
-              ) : (
-                <div className="flex min-h-120 items-center justify-center px-8 text-center text-sm text-slate-400"></div>
-              )}
-              <canvas
-                ref={canvasRef}
-                className="absolute inset-0 h-full w-full"
-              />
-            </div>
-          )}
-
-          <Model
-            webCamRef={webCamRef}
-            canvasRef={canvasRef}
-            webCamOn={isVideoMode}
-            heightCm={numericHeight}
-            image={imageRef}
-          />
-
-          {!isVideoMode && imageUrl && !imageLoaded ? (
-            <div className="absolute inset-x-0 bottom-0 border-t border-white/10 bg-black/60 px-4 py-3 text-sm text-slate-200">
-              Loading image detection...
-            </div>
-          ) : null}
-        </div>
-      </section>
+        <p className={`text-2xl font-bold text-center ${dawn.className}`}>
+          Your Body Measurements
+        </p>
+        <p className="text-lg">
+          <span className="font-semibold">Body Shape:</span>{" "}
+          {measurements.body_shape}
+        </p>
+        <p className="text-lg">
+          <span className="font-semibold">Shoulder Width:</span>{" "}
+          {measurements.shoulder_width.toFixed(2)} cm
+        </p>
+        <p className="text-lg">
+          <span className="font-semibold">Hip Width:</span>{" "}
+          {measurements.hip_width.toFixed(2)} cm
+        </p>
+        <p className="text-lg">
+          <span className="font-semibold">Leg Length:</span>{" "}
+          {measurements.leg_length.toFixed(2)} cm
+        </p>
+        <p className="text-lg">
+          <span className="font-semibold">Arm Length:</span>{" "}
+          {measurements.arm_length.toFixed(2)} cm
+        </p>
+        <h2>Clothing Recommendations Coming Soon! Stay Tuned!</h2>
+      </div>
     </div>
   );
-}
+};
+
+export default page;

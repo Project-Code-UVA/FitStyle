@@ -2,7 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-
+import { josefin, crimson, dawn } from "@/app/styles/font";
 import { cn } from "@/lib/utils";
 import { createClient } from "@/lib/supabase/client";
 import { Button } from "@/components/ui/button";
@@ -50,14 +50,16 @@ export function LoginForm({
 
   return (
     <div className={cn("flex flex-col gap-6", className)} {...props}>
-      <Card>
+      <Card className="bg-amber-50">
         <CardHeader>
-          <CardTitle className="text-2xl">Login</CardTitle>
+          <CardTitle className={`text-2xl text-center ${dawn.className}`}>
+            Login
+          </CardTitle>
         </CardHeader>
         <CardContent>
           <form onSubmit={handleLogin}>
-            <div className="flex flex-col gap-6">
-              <div className="grid gap-2">
+            <div className={`flex flex-col gap-6 ${josefin.className}`}>
+              <div className={`grid gap-2`}>
                 <Label htmlFor="email">Email</Label>
                 <Input
                   id="email"
@@ -87,11 +89,16 @@ export function LoginForm({
                 />
               </div>
               {error && <p className="text-sm text-red-500">{error}</p>}
-              <Button type="submit" className="w-full" disabled={isLoading}>
+              <Button
+                type="submit"
+                variant="fitstyle"
+                className="w-full"
+                disabled={isLoading}
+              >
                 {isLoading ? "Logging in..." : "Login"}
               </Button>
             </div>
-            <div className="mt-4 text-center text-sm">
+            <div className={`mt-4 text-center text-sm ${josefin.className}`}>
               Don&apos;t have an account?{" "}
               <Link
                 href="/auth/sign-up"
